@@ -9,15 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.yph.gank.MainActivity">
 
+    <TextView
+        android:id="@+id/nextPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:text="reload" />
+
     <ImageView
         android:id="@+id/gankBg"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_below="@+id/nextPage"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gankList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nextPage" />
 </RelativeLayout>

@@ -1,18 +1,18 @@
 package cn.yph.gank;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.yph.gank.api.GankService;
 import cn.yph.gank.entity.MeizhiResponse;
 import cn.yph.gank.entity.GankItem;
@@ -25,36 +25,45 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.gankBg)
     ImageView gankBg;
     @Bind(R.id.gankList)
     RecyclerView gankList;
+    @Bind(R.id.nextPage)
+    TextView nextPage;
 
     GankAdapter adapter;
 
     Call<MeizhiResponse> mzCall;
 
+    private GankService service;
+
+    private int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://gank.io/api/data/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(getGankApplication().getOkHttpClient())
                 .build();
-        GankService service = retrofit.create(GankService.class);
-        mzCall = service.getMeiZhi(10, 1);
+
+        service = retrofit.create(GankService.class);
 
         adapter = new GankAdapter(this);
         gankList.setAdapter(adapter);
         gankList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        mzCall = service.getMeiZhi(20, page);
         myObservable.subscribe(mySubscriber);
     }
+
 
     Observable<List<GankItem>> myObservable = Observable.create(
             new Observable.OnSubscribe<List<GankItem>>() {
@@ -89,5 +98,12 @@ public class MainActivity extends AppCompatActivity {
         public void onError(Throwable e) {
         }
     };
+
+    @OnClick(R.id.nextPage)
+    public void nextPage(View view) {
+        page++;
+        mzCall = service.getMeiZhi(20, page);
+        myObservable.subscribe(mySubscriber);
+    }
 
 }
