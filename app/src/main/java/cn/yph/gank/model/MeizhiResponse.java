@@ -1,4 +1,4 @@
-package cn.yph.gank.entity;
+package cn.yph.gank.model;
 
 import java.util.List;
 

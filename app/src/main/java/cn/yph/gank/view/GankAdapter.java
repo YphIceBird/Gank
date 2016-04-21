@@ -1,4 +1,4 @@
-package cn.yph.gank;
+package cn.yph.gank.view;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import cn.yph.gank.entity.GankItem;
+import cn.yph.gank.R;
+import cn.yph.gank.model.GankItem;
 
 /**
  * Created by yuanpenghao on 16/4/13.

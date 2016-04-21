@@ -1,4 +1,4 @@
-package cn.yph.gank.entity;
+package cn.yph.gank.model;
 
 /**
  * Created by yuanpenghao on 16/4/13.

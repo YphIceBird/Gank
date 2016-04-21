@@ -1,10 +1,12 @@
-package cn.yph.gank;
+package cn.yph.gank.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import cn.yph.gank.R;
 
 /**
  * Created by yuanpenghao on 16/4/13.
